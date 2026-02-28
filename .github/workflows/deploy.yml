@@ -19,6 +19,9 @@ jobs:
 
       - name: Convert Markdown into HTML and PDF
         uses: KoharaKazuya/marp-cli-action@v4
+        with:
+          generate-html: true
+          generate-pdf: false
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
