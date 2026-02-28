@@ -1,0 +1,268 @@
+---
+marp: true
+theme: gaia
+class:
+  - invert
+style: |
+  .red { color: #ff4b4b; }
+  .blue { color: #1e90ff; }
+---
+<style scoped>
+  /* 右下に情報をまとめるコンテナ */
+  .profile {
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
+    text-align: right;
+    font-size: 22px;
+  }
+  /* GitHubロゴ風の調整（画像URLは公式のものなどを使用） */
+  .github-id {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .github-id img {
+    width: 32px;
+    height: 32px;
+  }
+</style>
+
+# jujutsu(jj) ことはじめ
+
+<div class="profile">
+  Created:2026-02-28<br>
+  Updated:2026-02-28<br>
+  v1.0.0
+  <div class="github-id">
+    <img src="./images/icons/github.png">
+    @rozurozu
+  </div>
+</div>
+
+---
+<style scoped>
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .square-box {
+    display: flex;
+    gap: 40px; /* 画像の間隔 */
+    margin-bottom: 20px;
+  }
+  .square-box img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
+</style>
+
+## jujutsu(jj) とは<br>
+git互換のバージョン管理ツール<br>
+<br>
+
+<div class="square-box">
+  <img src="./images/icons/jj.png">
+  <img src="./images/icons/git.png">
+</div>
+
+---
+## コマンドは`jj`
+`jj`
+`jj new`
+`jj description`
+`jj squash`
+`jj rebase`
+<br><br>
+### `jj`って`git`より打ちやすいし、なんか**イケてね？**
+
+---
+
+## jujutsuの特徴 **自動保存**
+### 変更は常に、最新のコミットに反映される
+- **git**：未保存の作業を、明示的に**コミット**という箱へ入れる
+- **jj**：最新**コミット**という箱の中で、直接作業をする。
+
+<br><br>
+
+### Gitにおける『保存（<span class="red">Commit</span>）』という儀式を、Jujutsuは<span class="red">自動化</span>した
+
+---
+
+## jujutsuでは`stash`不要！
+
+![bg right:40% fit](images/no-stash.png)
+#### `jj new`コマンド
+新たなコミットを作成し、HEADを移す。
+
+feature/add-snsブランチをレビューしてください！って言われた時の操作
+
+`jj new feature/add-sns@origin`
+
+---
+## jujutsuではブランチが切りやすい！
+<style scoped>
+
+  .split-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  .text-box {
+    width: 38%;
+  }
+
+  .image-box {
+    width: 60%; /* 画像側の幅 */
+    margin-top: 40px; /* 画像を少し下にずらす調整 */
+  }
+
+  .image-box img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .red {
+    color: #ff4b4b;
+    font-weight: bold;
+  }
+</style>
+
+<div class="split-content">
+<div class="text-box">
+
+`jj log`コマンドで
+ツリーが表示される。
+
+チェンジID：<span class="red">x</span>ukpltwo
+
+このチェンジから
+ブランチ分岐したい時、
+`jj new x`コマンドで...
+
+</div>
+<div class="image-box">
+
+![fit](images/jj-new-01.png)
+
+</div>
+</div>
+
+---
+## jujutsuではブランチが切りやすい！
+<style scoped>
+
+  .split-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  .text-box {
+    width: 38%;
+  }
+
+  .image-box {
+    width: 60%; /* 画像側の幅 */
+    margin-top: 40px; /* 画像を少し下にずらす調整 */
+  }
+
+  .image-box img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .red {
+    color: #ff4b4b;
+    font-weight: bold;
+  }
+</style>
+
+<div class="split-content">
+<div class="text-box">
+
+<span class="red">x</span>ukpltwo
+から
+<span class="blue">v</span>orlmqus
+が生える！
+
+**ブランチ名も不要！**
+
+</div>
+<div class="image-box">
+
+![fit](images/jj-new-02.png)
+
+</div>
+</div>
+
+---
+
+## jujutsuの特徴 `jj undo` **最強！！**
+一つ前の操作をキャンセル出来る！
+例えばrebaseミスった時
+
+---
+### gitの場合
+rebaseミスった！
+ → `git reflog`でどこまで戻ればいいか確認
+ → `git reset --hard HEAD{n}`
+<br><br><br><br>
+💡 補足：
+`HEAD`じゃなくて`ORIG_HEAD`で操作前を指定できるらしいw
+
+---
+### jujutsuの場合
+rebaseミスった！
+ → `jj undo`
+<span class="red">**これだけ！**</span>
+<br><br><br>
+💡 補足：
+操作を複数戻したい時は`jj undo`しまくればいい！
+戻りすぎた時には`jj redo`で、やり直せる！
+
+---
+
+## よく使うコマンド
+- `new`
+- `edit`
+- `commit -m`
+- `description`または`desc`
+- `bookmark set`または`b s`
+- `squash`
+- `rebase`
+- `abandon`
+
+
+---
+
+## 学習コスト高いかも
+- **チェンジ**の概念が少しだけ難しい
+- 日本語の情報が少ない
+- ツールも少ない
+- 公式のcliリファレンスが正確じゃない？らしい
+> This CLI reference is experimental. It is automatically generated, but does not match the jj help output exactly.
+
+https://docs.jj-vcs.dev/latest/cli-reference/#jj-workspace
+
+---
+### メリット
+- 最強コマンド！ `jj undo`
+- `stash`不要
+- コンフリクトしててもコミット可能
+
+### 結論
+普段から、過去のコミットの修正や履歴を操作する人にはおすすめ！
+コーディングエージェント使う人にもおすすめ！
+現状はまだ情報もツールも少ない。 **<span class="red">学習コスト</span>＞<span class="blue">メリット</span>** かも。
